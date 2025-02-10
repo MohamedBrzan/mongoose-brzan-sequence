@@ -1,0 +1,32 @@
+{
+  "name": "mongoose-brzan-sequence",
+  "version": "1.0.0",
+  "description": "A Mongoose plugin for auto-incrementing fields with support for dynamic prefixes and suffixes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "mongoose": "^5.x || ^6.x || ^7.x"
+  },
+  "keywords": [
+    "mongoose",
+    "auto-increment",
+    "plugin",
+    "mongodb",
+    "increment",
+    "auto",
+    "sequence",
+    "counter"
+  ],
+  "author": "mohamedbrzan.dev@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedBrzan/Mongoose-Auto-Increment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MohamedBrzan/Mongoose-Auto-Increment/issues"
+  },
+  "homepage": "https://github.com/MohamedBrzan/Mongoose-Auto-Increment#readme"
+}
