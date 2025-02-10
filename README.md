@@ -146,7 +146,7 @@ MySchema.plugin(superIncrementPlugin, {
 
 ## Contributing
 
-Contributions are welcome! Please open issues or submit pull requests on the [GitHub repository](https://github.com/MohamedBrzan/Mongoose-Auto-Increment/tree/master).
+Contributions are welcome! Please open issues or submit pull requests on the [GitHub repository](https://github.com/MohamedBrzan/mongoose-brzan-sequence).
 
 ## License
 
