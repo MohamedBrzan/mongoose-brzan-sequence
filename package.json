@@ -23,10 +23,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MohamedBrzan/Mongoose-Auto-Increment.git"
+    "url": "git+https://github.com/MohamedBrzan/mongoose-brzan-sequence.git"
   },
   "bugs": {
-    "url": "https://github.com/MohamedBrzan/Mongoose-Auto-Increment/issues"
+    "url": "https://github.com/MohamedBrzan/mongoose-brzan-sequence/issues"
   },
-  "homepage": "https://github.com/MohamedBrzan/Mongoose-Auto-Increment#readme"
+  "homepage": "https://github.com/MohamedBrzan/mongoose-brzan-sequence#readme"
 }
