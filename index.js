@@ -26,7 +26,7 @@ const optionDefinitions = {
         error: 'must be a string and not "_id"'
     },
     startAt: {
-        default: 1,
+        default: 0,
         type: 'number',
         validate: (v) => typeof v === 'number',
         error: 'must be a number'
@@ -153,7 +153,7 @@ const updateCounter = async (settings, doc) => {
 };
 
 /**
- * Main plugin implementation
+ * Main plugin implementation with enhanced uniqueness protection
  * @param {Schema} schema 
  * @param {object} options 
  */
@@ -167,8 +167,33 @@ const plugin = (schema, options) => {
         throw new Error(`${pluginName}: Field '${settings.field}' already exists`);
     }
 
-    schema.add({ [settings.field]: { type: String } });
+    // Add field with unique constraints
+    schema.add({
+        [settings.field]: {
+            type: String,
+            unique: true,
+            validate: {
+                validator: async function (value) {
+                    const existing = await this.constructor.findOne({
+                        [settings.field]: value,
+                        _id: { $ne: this._id }
+                    });
+                    return !existing;
+                },
+                message: props => `${props.value} is already assigned to another agent`
+            }
+        }
+    });
+
+    // Create database-level unique index
+    schema.index({ [settings.field]: 1 }, { unique: true });
+
     schema.pre('save', async function () {
+        // Prevent manual modification of auto-increment field
+        if (this.isModified(settings.field) && !this.isNew) {
+            throw new Error(`${pluginName}: Cannot manually modify auto-incremented field '${settings.field}'`);
+        }
+
         await updateCounter(settings, this);
     });
 };
