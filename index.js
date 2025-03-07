@@ -26,7 +26,7 @@ const optionDefinitions = {
         error: 'must be a string and not "_id"'
     },
     startAt: {
-        default: 0,
+        default: 1,
         type: 'number',
         validate: (v) => typeof v === 'number',
         error: 'must be a number'
