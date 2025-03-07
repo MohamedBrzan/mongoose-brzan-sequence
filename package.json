@@ -1,6 +1,6 @@
 {
   "name": "mongoose-brzan-sequence",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Mongoose plugin for auto-incrementing fields with support for dynamic prefixes and suffixes.",
   "main": "index.js",
   "scripts": {
