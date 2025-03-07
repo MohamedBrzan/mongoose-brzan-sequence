@@ -121,7 +121,7 @@ const generateFormattedValue = async (settings, doc, count) => {
 };
 
 /**
- * Atomic counter update using MongoDB's findOneAndUpdate
+ * Atomic counter update using MongoDB's findOneAndUpdate with an aggregation pipeline.
  * @param {object} settings 
  * @param {import('mongoose').Document} doc 
  */
@@ -129,23 +129,25 @@ const updateCounter = async (settings, doc) => {
     if (!doc.isNew) return;
 
     const filter = { model: settings.model, field: settings.field };
-    const update = [{
-        $set: {
-            count: {
-                $cond: {
-                    if: { $eq: ['$count', null] },
-                    then: settings.startAt,
-                    else: { $add: ['$count', settings.incrementBy] }
+
+    const updatePipeline = [
+        {
+            $set: {
+                model: settings.model,
+                field: settings.field,
+                count: {
+                    $cond: {
+                        if: { $eq: ['$count', null] },
+                        then: settings.startAt,
+                        else: { $add: ['$count', settings.incrementBy] }
+                    }
                 }
             }
         }
-    }];
+    ];
 
-    const result = await Counter.collection.findOneAndUpdate(
-        filter,
-        update,
-        { returnDocument: 'after', upsert: true }
-    );
+    const options = { returnDocument: 'after', upsert: true };
+    const result = await Counter.collection.findOneAndUpdate(filter, updatePipeline, options);
 
     doc[settings.field] = await generateFormattedValue(settings, doc, result.value.count);
 };
