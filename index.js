@@ -137,7 +137,7 @@ const updateCounter = async (settings, doc) => {
                 field: settings.field,
                 count: {
                     $cond: {
-                        if: { $eq: ['$count', null] },
+                        if: { $eq: ['$$ROOT', null] }, // Check if the document is being created
                         then: settings.startAt,
                         else: { $add: ['$count', settings.incrementBy] }
                     }
